@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class UIManager : Manager
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject mainMenuCanvasPrefab;
+    private MainMenuCanvasController mainMenuCanvasController;
+    [SerializeField] private GameObject gameCanvasPrefab;
+    //private GameCanvasController gameCanvasController;
+
+    public override void Setup(Manager manager)
     {
-        
+        base.Setup(manager);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetupMainMenuUI()
     {
-        
+        GameObject mainMenuCanvasObject = Instantiate(mainMenuCanvasPrefab);
+        mainMenuCanvasController = mainMenuCanvasObject.GetComponent<MainMenuCanvasController>();
+        mainMenuCanvasController.Setup(manager);
+    }
+
+    public void SetupGameUI()
+    {
+        GameObject gameCanvasObject = Instantiate(gameCanvasPrefab);
+        //gameCanvasController = gameCanvasObject.GetComponent<GameCanvasController>();
+        //gameCanvasController.Setup(manager);
     }
 }

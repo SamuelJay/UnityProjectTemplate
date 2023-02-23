@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f402e69b5a923741a2fd2e2a5742dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvasPrefab: {fileID: 7590577733797077194, guid: ccd0ecc71c5ecb2469d7dae085abfc89, type: 3}
+  gameCanvasPrefab: {fileID: 0}
