@@ -1,18 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Manager
 {
-    // Start is called before the first frame update
-    void Start()
+    private AppManager appManager => manager as AppManager;
+    private SceneLoadingManager sceneLoadingManager => appManager.sceneLoadingManager;
+
+    public override void Setup(Manager manager)
     {
-        
+        base.Setup(manager);
+        StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
+    }
+    private void OnExitButtonPressedEvent(object sender, EventArgs e)
+    {
+        sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Escape)) 
+        {
+            TriggerEvent<ExitButtonPressedEvent>(new ExitButtonPressedEvent());
+        }
     }
 }
