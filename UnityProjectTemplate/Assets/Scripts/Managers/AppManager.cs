@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AppManager : Manager
 {
@@ -41,7 +43,23 @@ public class AppManager : Manager
         sceneLoadingManager.Setup(this);
         uiManager.Setup(this);
 
-        
+        StartListeningToEvent<SceneLoadedEvent>(OnSceneLoadedEvent);
+        sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
+
+    }
+
+    private void OnSceneLoadedEvent(object sender, EventArgs e)
+    {
+        SceneLoadedEvent sceneLoadedEvent = (SceneLoadedEvent)e;
+        switch (sceneLoadedEvent.scene.name)
+        {
+            case "MainMenu":
+                SetupMainMenu();
+                break;
+            case "Game":
+                SetupGame();
+                break;
+        };
     }
 
     private void SetupMainMenu()
