@@ -14,7 +14,7 @@ public class GameManager : Manager
         base.Setup(manager);
         StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
     }
-    private void OnExitButtonPressedEvent(object sender, EventArgs e)
+    private void OnExitButtonPressedEvent(object sender, EventArgs data)
     {
         sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }

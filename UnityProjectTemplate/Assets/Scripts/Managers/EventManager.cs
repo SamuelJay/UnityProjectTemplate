@@ -54,10 +54,10 @@ public class EventManager : Manager
     {
         List<Type> types = FindDerivedTypes(Assembly.GetCallingAssembly(), typeof(BaseEvent));
         eventsByType = new Dictionary<Type, EventHandlerCapsule>();
-        foreach (Type t in types)
+        foreach (Type type in types)
         {
 
-            eventsByType.Add(t, EventHandlerCapsuleFactory());
+            eventsByType.Add(type, EventHandlerCapsuleFactory());
         }
     }
 
@@ -66,11 +66,11 @@ public class EventManager : Manager
 
         List<Type> allTypes = assembly.GetTypes().ToList<Type>();
         List<Type> types = new List<Type>();
-        foreach (Type t in allTypes)
+        foreach (Type type in allTypes)
         {
-            if (t.IsSubclassOf(baseType))
+            if (type.IsSubclassOf(baseType))
             {
-                types.Add(t);
+                types.Add(type);
             }
         }
         return types;

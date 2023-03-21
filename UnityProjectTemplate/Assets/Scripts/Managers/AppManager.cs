@@ -48,9 +48,9 @@ public class AppManager : Manager
 
     }
 
-    private void OnSceneLoadedEvent(object sender, EventArgs e)
+    private void OnSceneLoadedEvent(object sender, EventArgs data)
     {
-        SceneLoadedEvent sceneLoadedEvent = (SceneLoadedEvent)e;
+        SceneLoadedEvent sceneLoadedEvent = (SceneLoadedEvent)data;
         switch (sceneLoadedEvent.scene.name)
         {
             case "MainMenu":

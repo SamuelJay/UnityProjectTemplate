@@ -18,7 +18,7 @@ public class MainMenuManager : Manager
 
     }
 
-    private void OnStartButtonPressedEvent(object sender, EventArgs e)
+    private void OnStartButtonPressedEvent(object sender, EventArgs data)
     {
         sceneLoadingManager.LoadScene("Game", LoadSceneMode.Single);
     }
