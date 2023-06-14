@@ -14,9 +14,9 @@ public class EventManager : Manager
         return new EventHandlerCapsule();
     }
 
-    public override void Setup(Manager managerIn)
+    public override void Setup(AppManager appManager)
     {
-        base.Setup(managerIn);
+        base.Setup(appManager);
         SetupEvents();
     }
 

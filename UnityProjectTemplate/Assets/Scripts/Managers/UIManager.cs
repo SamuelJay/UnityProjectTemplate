@@ -9,16 +9,16 @@ public class UIManager : Manager
     [SerializeField] private GameObject gameCanvasPrefab;
     //private GameCanvasController gameCanvasController;
 
-    public override void Setup(Manager manager)
+    public override void Setup(AppManager appManager)
     {
-        base.Setup(manager);
+        base.Setup(appManager);
     }
 
     public void SetupMainMenuUI()
     {
         GameObject mainMenuCanvasObject = Instantiate(mainMenuCanvasPrefab);
         mainMenuCanvasController = mainMenuCanvasObject.GetComponent<MainMenuCanvasController>();
-        mainMenuCanvasController.Setup(manager);
+        mainMenuCanvasController.Setup(appManager);
     }
 
     public void SetupGameUI()

@@ -6,13 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : Manager
 {
-    private AppManager appManager => manager as AppManager;
     private SceneLoadingManager sceneLoadingManager => appManager.sceneLoadingManager;
     private UIManager uiManager => appManager.uiManager;
 
-    public override void Setup(Manager manager)
+    public override void Setup(AppManager appManager)
     {
-        base.Setup(manager);
+        base.Setup(appManager);
         StartListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
         uiManager.SetupMainMenuUI();
 

@@ -5,19 +5,12 @@ using UnityEngine;
 
 public class BaseBehaviour : MonoBehaviour
 {
-    private EventManager eventManager
+    private EventManager eventManager => appManager.eventManager;
+    
+    public AppManager appManager { get; private set; }
+    public virtual void Setup(AppManager appManager)
     {
-        get
-        {
-            return appmanager.eventManager;
-        }
-    }
-
-    private AppManager appmanager => manager as AppManager;
-    public Manager manager { get; private set; }
-    public virtual void Setup(Manager manager)
-    {
-        this.manager = manager;
+        this.appManager = appManager;
     }
 
     public void StartListeningToEvent<T>(EventHandler callback)
