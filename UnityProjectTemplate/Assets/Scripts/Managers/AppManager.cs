@@ -23,9 +23,9 @@ public class AppManager : Manager
         Setup(this);
     }
 
-    public override void Setup(Manager manager)
+    public override void Setup(AppManager appManager)
     {
-        base.Setup(manager);
+        base.Setup(appManager);
         GameObject eventManagerObject = Instantiate(eventManagerPrefab);
         GameObject sceneLoadingManagerObject = Instantiate(sceneLoadingManagerPrefab);
         GameObject uiManagerObject = Instantiate(uiManagerPrefab);
