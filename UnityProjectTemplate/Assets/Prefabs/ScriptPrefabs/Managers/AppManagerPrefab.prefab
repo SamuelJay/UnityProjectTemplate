@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215de3dc180488240bd7b3cd653ca97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventManagerPrefab: {fileID: 6221821081655101254, guid: 211f9231754b5fe45abb1387fd15173c, type: 3}
+  sceneLoadingManagerPrefab: {fileID: 7713958845651926748, guid: ce3e069bb5f90ff408cc6d0a913abaa9, type: 3}
+  uiManagerPrefab: {fileID: 7621694531227660624, guid: 368e9a59182225e47ade223d44682136, type: 3}
+  mainMenuManagerPrefab: {fileID: 6581224894782284499, guid: 58ce68f1fb5817d4d932090c6d91f624, type: 3}
+  gameManagerPrefab: {fileID: 2040523411892111500, guid: 04eea740bf491834da20af2783019f27, type: 3}

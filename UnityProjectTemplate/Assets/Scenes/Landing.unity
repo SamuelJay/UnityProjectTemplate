@@ -262,26 +262,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AppManagerPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 8524327296962273128, guid: d96007d1a8ea52f4ba6d8b773c3a2ff0, type: 3}
-      propertyPath: uiManagerPrefab
-      value: 
-      objectReference: {fileID: 1486265376340047549, guid: 368e9a59182225e47ade223d44682136, type: 3}
-    - target: {fileID: 8524327296962273128, guid: d96007d1a8ea52f4ba6d8b773c3a2ff0, type: 3}
-      propertyPath: gameManagerPrefab
-      value: 
-      objectReference: {fileID: 4833482826632140877, guid: 04eea740bf491834da20af2783019f27, type: 3}
-    - target: {fileID: 8524327296962273128, guid: d96007d1a8ea52f4ba6d8b773c3a2ff0, type: 3}
-      propertyPath: eventManagerPrefab
-      value: 
-      objectReference: {fileID: 2191424412815718506, guid: 211f9231754b5fe45abb1387fd15173c, type: 3}
-    - target: {fileID: 8524327296962273128, guid: d96007d1a8ea52f4ba6d8b773c3a2ff0, type: 3}
-      propertyPath: mainMenuManagerPrefab
-      value: 
-      objectReference: {fileID: 896536949593175611, guid: 58ce68f1fb5817d4d932090c6d91f624, type: 3}
-    - target: {fileID: 8524327296962273128, guid: d96007d1a8ea52f4ba6d8b773c3a2ff0, type: 3}
-      propertyPath: sceneLoadingManagerPrefab
-      value: 
-      objectReference: {fileID: 7309969384005504512, guid: ce3e069bb5f90ff408cc6d0a913abaa9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d96007d1a8ea52f4ba6d8b773c3a2ff0, type: 3}
 --- !u!1 &1172800421
