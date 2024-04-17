@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartButtonPressedEvent : BaseEvent
-{
-    
+public class StartButtonPressedEvent : BaseEvent {
+
 }

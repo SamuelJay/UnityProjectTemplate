@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AppManager : Manager
-{
+public class AppManager : Manager {
     public EventManager eventManager { get; private set; }
     public SceneLoadingManager sceneLoadingManager { get; private set; }
     public UIManager uiManager { get; private set; }
@@ -18,13 +17,11 @@ public class AppManager : Manager
     [SerializeField] private MainMenuManager mainMenuManagerPrefab;
     [SerializeField] private GameManager gameManagerPrefab;
 
-    private void Awake()
-    {
+    private void Awake() {
         Setup(this);
     }
 
-    public override void Setup(AppManager appManager)
-    {
+    public override void Setup(AppManager appManager) {
         base.Setup(appManager);
         eventManager = Instantiate(eventManagerPrefab);
         sceneLoadingManager = Instantiate(sceneLoadingManagerPrefab);
@@ -34,7 +31,7 @@ public class AppManager : Manager
         DontDestroyOnLoad(eventManager);
         DontDestroyOnLoad(sceneLoadingManager);
         DontDestroyOnLoad(uiManager);
-        
+
         eventManager.Setup(this);
         sceneLoadingManager.Setup(this);
         uiManager.Setup(this);
@@ -43,11 +40,9 @@ public class AppManager : Manager
         sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
-    private void OnSceneLoadedEvent(object sender, EventArgs data)
-    {
+    private void OnSceneLoadedEvent(object sender, EventArgs data) {
         SceneLoadedEvent sceneLoadedEvent = data as SceneLoadedEvent;
-        switch (sceneLoadedEvent.scene.name)
-        {
+        switch (sceneLoadedEvent.scene.name) {
             case "MainMenu":
                 SetupMainMenu();
                 break;
@@ -57,15 +52,14 @@ public class AppManager : Manager
         };
     }
 
-    private void SetupMainMenu()
-    {
+    private void SetupMainMenu() {
         mainMenuManager = Instantiate(mainMenuManagerPrefab);
         mainMenuManager.Setup(this);
     }
 
-    private void SetupGame()
-    {
+    private void SetupGame() {
         gameManager = Instantiate(gameManagerPrefab);
         gameManager.Setup(this);
     }
+
 }

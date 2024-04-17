@@ -4,26 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : Manager
-{
+public class MainMenuManager : Manager {
     private SceneLoadingManager sceneLoadingManager => appManager.sceneLoadingManager;
     private UIManager uiManager => appManager.uiManager;
 
-    public override void Setup(AppManager appManager)
-    {
+    public override void Setup(AppManager appManager) {
         base.Setup(appManager);
         StartListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
         uiManager.SetupMainMenuUI();
 
     }
 
-    private void OnStartButtonPressedEvent(object sender, EventArgs data)
-    {
+    private void OnStartButtonPressedEvent(object sender, EventArgs data) {
         sceneLoadingManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         StopListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
     }
 }

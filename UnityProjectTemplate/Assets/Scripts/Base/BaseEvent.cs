@@ -1,8 +1,7 @@
 ﻿using System;
 
 
-public class BaseEvent : EventArgs
-{
+public class BaseEvent : EventArgs {
 
 
 }

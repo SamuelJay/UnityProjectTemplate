@@ -1,8 +1,7 @@
 ﻿using System;
 
 
-public class EventHandlerCapsule
-{
+public class EventHandlerCapsule {
     public EventHandler thisEvent;
 }
 
