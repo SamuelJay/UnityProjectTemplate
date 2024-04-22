@@ -9,8 +9,14 @@ public class GameManager : Manager {
 
     public override void Setup(AppManager appManager) {
         base.Setup(appManager);
+        GameSceneManager.gameSceneLoadedEvent += OnGameSceneLoadedEvent;
         StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
     }
+
+    private void OnGameSceneLoadedEvent(GameSceneManager gameSceneManager) {
+        gameSceneManager.Setup(appManager);
+    }
+
     private void OnExitButtonPressedEvent(object sender, EventArgs data) {
         sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }

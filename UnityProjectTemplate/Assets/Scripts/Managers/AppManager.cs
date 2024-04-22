@@ -9,7 +9,9 @@ public class AppManager : Manager {
     public SceneLoadingManager sceneLoadingManager { get; private set; }
     public UIManager uiManager { get; private set; }
     public MainMenuManager mainMenuManager { get; private set; }
+    public MainMenuSceneManager mainMenuSceneManager { get; private set; }
     public GameManager gameManager { get; private set; }
+    public GameSceneManager gameSceneManager { get; private set; }
 
     [SerializeField] private EventManager eventManagerPrefab;
     [SerializeField] private SceneLoadingManager sceneLoadingManagerPrefab;
@@ -36,8 +38,17 @@ public class AppManager : Manager {
         sceneLoadingManager.Setup(this);
         uiManager.Setup(this);
 
+        //StartListeningToEvent<SceneLoadedEvent>(OnSceneLoadedEvent);
         StartListeningToEvent<SceneLoadedEvent>(OnSceneLoadedEvent);
         sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    public void RegisterMainMenuSceneManager(MainMenuSceneManager mainMenuSceneManager) {
+        this.mainMenuSceneManager = mainMenuSceneManager;
+    }
+    
+    public void RegisterGameSceneManager(GameSceneManager gameSceneManager) {
+        this.gameSceneManager = gameSceneManager;
     }
 
     private void OnSceneLoadedEvent(object sender, EventArgs data) {

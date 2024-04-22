@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3574878630315760549}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2753561739872285525}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3876384516766321665
 MonoBehaviour:
@@ -99,7 +99,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5787493024194308391}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -236,7 +235,6 @@ RectTransform:
   m_Children:
   - {fileID: 1159115413293016093}
   m_Father: {fileID: 2753561739872285525}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -337,7 +335,7 @@ GameObject:
   - component: {fileID: 7820267751719989756}
   - component: {fileID: 4574726517269333542}
   - component: {fileID: 6581004118388887399}
-  - component: {fileID: 2295057726267509820}
+  - component: {fileID: 8745140590094332566}
   m_Layer: 5
   m_Name: MainMenuCanvasPrefab
   m_TagString: Untagged
@@ -360,7 +358,6 @@ RectTransform:
   - {fileID: 5787493024194308391}
   - {fileID: 4284020561994834914}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -384,7 +381,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -428,7 +427,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2295057726267509820
+--- !u!114 &8745140590094332566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,7 +436,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7590577733797077194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3bc3317710fbf439e0c8c93232d6be, type: 3}
+  m_Script: {fileID: 11500000, guid: a5a7c6147645283428d7450350d749dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startButton: {fileID: 6794815362620300368}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuCanvasController : Controller {
+public class MainMenuCanvas : Controller {
     [SerializeField] private Button startButton;
 
     public override void Setup(AppManager appManager) {
