@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseBehaviour : MonoBehaviour {
-    private EventManager eventManager => appManager.eventManager;
-
     public AppManager appManager { get; private set; }
+    protected UIManager uiManager => appManager.uiManagerInstance;
+    protected SceneLoadingManager sceneLoadingManager => appManager.sceneLoadingManagerInstance;
+    private EventManager eventManager => appManager.eventManagerInstance;
+
     public virtual void Setup(AppManager appManager) {
         this.appManager = appManager;
     }

@@ -11,6 +11,10 @@ public class MainMenuCanvas : Controller {
         startButton.onClick.AddListener(StartButtonPressed);
     }
 
+    private void OnDestroy() {
+        startButton.onClick.RemoveListener(StartButtonPressed);
+    }
+
     private void StartButtonPressed() {
         TriggerEvent<StartButtonPressedEvent>(new StartButtonPressedEvent());
     }

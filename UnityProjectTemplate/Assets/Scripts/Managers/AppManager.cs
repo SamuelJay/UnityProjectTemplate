@@ -5,19 +5,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AppManager : Manager {
-    public EventManager eventManager { get; private set; }
-    public SceneLoadingManager sceneLoadingManager { get; private set; }
-    public UIManager uiManager { get; private set; }
-    public MainMenuManager mainMenuManager { get; private set; }
+    public EventManager eventManagerInstance { get; private set; }
+    public SceneLoadingManager sceneLoadingManagerInstance { get; private set; }
+    public UIManager uiManagerInstance { get; private set; }
     public MainMenuSceneManager mainMenuSceneManager { get; private set; }
-    public GameManager gameManager { get; private set; }
     public GameSceneManager gameSceneManager { get; private set; }
 
     [SerializeField] private EventManager eventManagerPrefab;
     [SerializeField] private SceneLoadingManager sceneLoadingManagerPrefab;
     [SerializeField] private UIManager uiManagerPrefab;
-    [SerializeField] private MainMenuManager mainMenuManagerPrefab;
-    [SerializeField] private GameManager gameManagerPrefab;
 
     private void Awake() {
         Setup(this);
@@ -25,52 +21,42 @@ public class AppManager : Manager {
 
     public override void Setup(AppManager appManager) {
         base.Setup(appManager);
-        eventManager = Instantiate(eventManagerPrefab);
-        sceneLoadingManager = Instantiate(sceneLoadingManagerPrefab);
-        uiManager = Instantiate(uiManagerPrefab);
+        eventManagerInstance = Instantiate(eventManagerPrefab);
+        sceneLoadingManagerInstance = Instantiate(sceneLoadingManagerPrefab);
+        uiManagerInstance = Instantiate(uiManagerPrefab);
 
         DontDestroyOnLoad(this);
-        DontDestroyOnLoad(eventManager);
-        DontDestroyOnLoad(sceneLoadingManager);
-        DontDestroyOnLoad(uiManager);
+        DontDestroyOnLoad(eventManagerInstance);
+        DontDestroyOnLoad(sceneLoadingManagerInstance);
+        DontDestroyOnLoad(uiManagerInstance);
 
-        eventManager.Setup(this);
-        sceneLoadingManager.Setup(this);
-        uiManager.Setup(this);
+        eventManagerInstance.Setup(this);
+        sceneLoadingManagerInstance.Setup(this);
+        uiManagerInstance.Setup(this);
 
-        //StartListeningToEvent<SceneLoadedEvent>(OnSceneLoadedEvent);
-        StartListeningToEvent<SceneLoadedEvent>(OnSceneLoadedEvent);
-        sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        MainMenuSceneManager.mainMenuSceneLoadedEvent += OnMainMenuSceneLoadedEvent;
+        GameSceneManager.gameSceneLoadedEvent += OnGameSceneLoadedEvent;
+        sceneLoadingManagerInstance.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    private void OnDestroy() {
+        MainMenuSceneManager.mainMenuSceneLoadedEvent -= OnMainMenuSceneLoadedEvent;
+        GameSceneManager.gameSceneLoadedEvent -= OnGameSceneLoadedEvent;
     }
 
     public void RegisterMainMenuSceneManager(MainMenuSceneManager mainMenuSceneManager) {
         this.mainMenuSceneManager = mainMenuSceneManager;
     }
-    
+
+    private void OnMainMenuSceneLoadedEvent(MainMenuSceneManager mainMenuSceneManager) {
+        mainMenuSceneManager.Setup(appManager);
+    }
+
     public void RegisterGameSceneManager(GameSceneManager gameSceneManager) {
         this.gameSceneManager = gameSceneManager;
     }
 
-    private void OnSceneLoadedEvent(object sender, EventArgs data) {
-        SceneLoadedEvent sceneLoadedEvent = data as SceneLoadedEvent;
-        switch (sceneLoadedEvent.scene.name) {
-            case "MainMenu":
-                SetupMainMenu();
-                break;
-            case "Game":
-                SetupGame();
-                break;
-        };
+    private void OnGameSceneLoadedEvent(GameSceneManager gameSceneManager) {
+        gameSceneManager.Setup(appManager);
     }
-
-    private void SetupMainMenu() {
-        mainMenuManager = Instantiate(mainMenuManagerPrefab);
-        mainMenuManager.Setup(this);
-    }
-
-    private void SetupGame() {
-        gameManager = Instantiate(gameManagerPrefab);
-        gameManager.Setup(this);
-    }
-
 }

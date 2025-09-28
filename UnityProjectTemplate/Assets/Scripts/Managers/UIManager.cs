@@ -19,10 +19,4 @@ public class UIManager : Manager {
         this.gameCanvas = gameCanvas;
         gameCanvas.Setup(appManager);
     }
-
-/*    public void SetupGameUI() {
-        GameObject gameCanvasObject = Instantiate(gameCanvasPrefab);
-        //gameCanvasController = gameCanvasObject.GetComponent<GameCanvasController>();
-        //gameCanvasController.Setup(manager);
-    }*/
 }

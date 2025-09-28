@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSceneManager : Manager
 {
@@ -10,7 +12,8 @@ public class GameSceneManager : Manager
 
     [SerializeField] private GameCanvas gameCanvas;
 
-    private UIManager uiManager => appManager.uiManager;
+   
+
 
     void Start() {
         gameSceneLoadedEvent.Invoke(this);
@@ -21,5 +24,21 @@ public class GameSceneManager : Manager
         print("MainMenuSceneManager Setup");
         appManager.RegisterGameSceneManager(this);
         uiManager.RegisterGameCanvas(gameCanvas);
+        StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
     }
+
+    private void OnDestroy() {
+        StopListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
+    }
+
+    private void Update() {
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            TriggerEvent<ExitButtonPressedEvent>(new ExitButtonPressedEvent());
+        }
+    }
+
+    private void OnExitButtonPressedEvent(object sender, EventArgs data) {
+        sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
 }
