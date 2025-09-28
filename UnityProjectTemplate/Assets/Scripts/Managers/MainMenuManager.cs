@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuSceneManager : Manager {
-    public delegate void MainMenuSceneLoadedDelegate(MainMenuSceneManager mainMenuSceneManager);
+public class MainMenuManager : Manager {
+    public delegate void MainMenuSceneLoadedDelegate(MainMenuManager mainMenuManager);
     public static event MainMenuSceneLoadedDelegate mainMenuSceneLoadedEvent;
 
     [SerializeField] private MainMenuCanvas mainMenuCanvas;
@@ -17,7 +17,7 @@ public class MainMenuSceneManager : Manager {
     public override void Setup(AppManager appManager) {
         base.Setup(appManager);
         print("MainMenuSceneManager Setup");
-        appManager.RegisterMainMenuSceneManager(this);
+        appManager.RegisterMainMenuManager(this);
         uiManager.RegisterMainMenuCanvas(mainMenuCanvas);
         StartListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
     }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameSceneManager : Manager
+public class GameManager : Manager
 {
-    public delegate void GameSceneLoadedDelegate(GameSceneManager gameSceneManager);
+    public delegate void GameSceneLoadedDelegate(GameManager gameManager);
     public static event GameSceneLoadedDelegate gameSceneLoadedEvent;
 
 
@@ -22,7 +22,7 @@ public class GameSceneManager : Manager
     public override void Setup(AppManager appManager) {
         base.Setup(appManager);
         print("MainMenuSceneManager Setup");
-        appManager.RegisterGameSceneManager(this);
+        appManager.RegisterGameManager(this);
         uiManager.RegisterGameCanvas(gameCanvas);
         StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
     }
