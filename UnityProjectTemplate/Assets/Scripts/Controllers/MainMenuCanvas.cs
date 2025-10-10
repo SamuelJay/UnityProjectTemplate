@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuCanvas : Controller {
+    
     [SerializeField] private Button startButton;
 
-    public override void Setup(AppManager appManager) {
-        base.Setup(appManager);
+    private void OnEnable() {
+        Setup();
+    }
+
+    private void Setup() {
         startButton.onClick.AddListener(StartButtonPressed);
     }
+
 
     private void OnDestroy() {
         startButton.onClick.RemoveListener(StartButtonPressed);

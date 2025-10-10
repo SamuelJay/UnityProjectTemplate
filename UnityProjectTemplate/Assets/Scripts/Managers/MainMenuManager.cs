@@ -5,20 +5,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : Manager, IMainMenu {
-    public delegate void MainMenuSceneLoadedDelegate(MainMenuManager mainMenuManager);
-    public static event MainMenuSceneLoadedDelegate mainMenuSceneLoadedEvent;
-
+  
     [SerializeField] private MainMenuCanvas mainMenuCanvas;
 
-    void Start() {
-        mainMenuSceneLoadedEvent.Invoke(this);
+    private void OnEnable() {
+        Services.Register<IMainMenu>(this);
+        Setup();
     }
 
-    public override void Setup(AppManager appManager) {
-        base.Setup(appManager);
+    private void Setup() {
+        
         print("MainMenuSceneManager Setup");
-        appManager.RegisterMainMenuManager(this);
-        uiManager.RegisterMainMenuCanvas(mainMenuCanvas);
+        
         StartListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
     }
     private void OnDestroy() {

@@ -11,9 +11,16 @@ public class EventManager : Manager, IEventBus {
     private EventHandlerCapsule EventHandlerCapsuleFactory() {
         return new EventHandlerCapsule();
     }
+      
 
-    public override void Setup(AppManager appManager) {
-        base.Setup(appManager);
+    private void OnEnable() {
+        Services.Register<IEventBus>(this);
+        Setup();
+
+        // NOTE: Should we register here, currently doing it in AppManager
+    }
+
+    private void Setup() { 
         SetupEvents();
     }
 

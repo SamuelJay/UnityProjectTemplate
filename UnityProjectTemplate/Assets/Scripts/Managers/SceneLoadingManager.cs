@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoadingManager : Manager, IScenes {
-    public override void Setup(AppManager appManagerIn) {
-        base.Setup(appManagerIn);
+    private void Setup() {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
+    private void OnEnable() {
+        Services.Register<IScenes>(this);
+        Setup();
+    }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         TriggerEvent<SceneLoadedEvent>(new SceneLoadedEvent(scene, mode));
     }

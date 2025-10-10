@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseBehaviour : MonoBehaviour {
-    public AppManager appManager { get; private set; }
-    protected UIManager uiManager => appManager.uiManagerInstance;
-    protected SceneLoadingManager sceneLoadingManager => appManager.sceneLoadingManagerInstance;
-    private EventManager eventManager => appManager.eventManagerInstance;
+    protected IScenes sceneLoadingManager => Services.Get<IScenes>();
+    private IEventBus eventManager => Services.Get<IEventBus>();
 
-    public virtual void Setup(AppManager appManager) {
+    /*public virtual void Setup(AppManager appManager) {
         this.appManager = appManager;
-    }
+    }*/
 
     public void StartListeningToEvent<T>(EventHandler callback) {
         eventManager.StartListening<T>(callback);

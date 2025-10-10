@@ -1,31 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Manager, IGame
 {
-    public delegate void GameSceneLoadedDelegate(GameManager gameManager);
-    public static event GameSceneLoadedDelegate gameSceneLoadedEvent;
-
-
     [SerializeField] private GameCanvas gameCanvas;
 
-   
-
-
-    void Start() {
-        gameSceneLoadedEvent.Invoke(this);
+    private void OnEnable() {
+        Services.Register<IGame>(this);
+        Setup();
     }
 
-    public override void Setup(AppManager appManager) {
-        base.Setup(appManager);
-        print("MainMenuSceneManager Setup");
-        appManager.RegisterGameManager(this);
-        uiManager.RegisterGameCanvas(gameCanvas);
+    public void Setup() {
         StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
     }
+
+    
 
     private void OnDestroy() {
         StopListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
