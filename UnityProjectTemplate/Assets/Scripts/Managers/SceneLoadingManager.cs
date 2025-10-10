@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoadingManager : Manager {
+public class SceneLoadingManager : Manager, IScenes {
     public override void Setup(AppManager appManagerIn) {
         base.Setup(appManagerIn);
         SceneManager.sceneLoaded += OnSceneLoaded;

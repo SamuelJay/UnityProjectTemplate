@@ -5,7 +5,7 @@ using System;
 using System.Reflection;
 using System.Linq;
 
-public class EventManager : Manager {
+public class EventManager : Manager, IEventBus {
     private Dictionary<Type, EventHandlerCapsule> eventsByType;
 
     private EventHandlerCapsule EventHandlerCapsuleFactory() {

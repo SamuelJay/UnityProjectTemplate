@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : Manager {
+public class UIManager : Manager, IUI {
     public MainMenuCanvas mainMenuCanvas { get; private set; }
     public GameCanvas gameCanvas { get; private set; }
 

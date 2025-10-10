@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : Manager {
+public class MainMenuManager : Manager, IMainMenu {
     public delegate void MainMenuSceneLoadedDelegate(MainMenuManager mainMenuManager);
     public static event MainMenuSceneLoadedDelegate mainMenuSceneLoadedEvent;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Manager
+public class GameManager : Manager, IGame
 {
     public delegate void GameSceneLoadedDelegate(GameManager gameManager);
     public static event GameSceneLoadedDelegate gameSceneLoadedEvent;
