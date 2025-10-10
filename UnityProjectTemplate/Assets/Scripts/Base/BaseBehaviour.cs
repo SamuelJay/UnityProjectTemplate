@@ -1,27 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class BaseBehaviour : MonoBehaviour {
-    public AppManager appManager { get; private set; }
-    protected UIManager uiManager => appManager.uiManagerInstance;
-    protected SceneLoadingManager sceneLoadingManager => appManager.sceneLoadingManagerInstance;
-    private EventManager eventManager => appManager.eventManagerInstance;
+public abstract class BaseBehaviour : MonoBehaviour {
+    protected IUI UI => Services.Get<IUI>();
+    protected IScenes Scenes => Services.Get<IScenes>();
+    protected IEventBus Bus => Services.Get<IEventBus>();
 
-    public virtual void Setup(AppManager appManager) {
-        this.appManager = appManager;
-    }
-
-    public void StartListeningToEvent<T>(EventHandler callback) {
-        eventManager.StartListening<T>(callback);
-    }
-
-    public void StopListeningToEvent<T>(EventHandler callback) {
-        eventManager.StopListening<T>(callback);
-    }
-
-    public void TriggerEvent<T>(BaseEvent eventArgs) {
-        eventManager.Trigger<T>(eventArgs);
-    }
-}
+   }

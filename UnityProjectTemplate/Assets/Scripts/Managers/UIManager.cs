@@ -1,6 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
+public class UIManager : MonoBehaviour, IApp {
+    void OnEnable() {
+        Services.Register<IApp>(this);
+        Services.Register<IEventBus>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
+        // same for scene/UI services – or assign via inspector once
+    }
+}
 
 public class UIManager : Manager {
     public MainMenuCanvas mainMenuCanvas { get; private set; }

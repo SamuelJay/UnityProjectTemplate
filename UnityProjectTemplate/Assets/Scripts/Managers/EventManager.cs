@@ -1,13 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
+using Unity.VisualScripting;
+using UnityEngine;
+
+
+public class EventManager : MonoBehaviour, IApp {
+    void OnEnable() {
+        Services.Register<IApp>(this);
+        Services.Register<IEventBus>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
+        }
+
 
 public class EventManager : Manager {
     private Dictionary<Type, EventHandlerCapsule> eventsByType;
-
     private EventHandlerCapsule EventHandlerCapsuleFactory() {
         return new EventHandlerCapsule();
     }
@@ -32,7 +40,7 @@ public class EventManager : Manager {
     }
 
     public void Trigger<T>(BaseEvent eventArgs) {
-        EventHandlerCapsule thisEvent = null;
+             EventHandlerCapsule thisEvent = null;
         if (eventsByType.TryGetValue(typeof(T), out thisEvent)) {
             if (thisEvent.thisEvent != null) {
                 thisEvent.thisEvent(this, eventArgs);

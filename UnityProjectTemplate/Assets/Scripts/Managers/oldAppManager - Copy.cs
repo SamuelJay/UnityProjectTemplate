@@ -1,51 +1,43 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AppManager: MonoBehaviour,IApp{
-public EventManager EventManagerInstance { get; private set; }
-public SceneLoadingManager SceneLoadingManagerInstance { get; private set; }
-public UIManager UiManagerInstance { get; private set; }
-public MainMenuManager MainMenuManager { get; private set; }
-public GameManager GameManager { get; private set; }
+public class AppManager : Manager {
+    public EventManager eventManagerInstance { get; private set; }
+    public SceneLoadingManager sceneLoadingManagerInstance { get; private set; }
+    public UIManager uiManagerInstance { get; private set; }
+    public MainMenuManager mainMenuManager { get; private set; }
+    public GameManager gameManager { get; private set; }
 
+    [SerializeField] private EventManager eventManagerPrefab;
+    [SerializeField] private SceneLoadingManager sceneLoadingManagerPrefab;
+    [SerializeField] private UIManager uiManagerPrefab;
 
-    void OnEnable() {
-        
-        Services.Register<IApp>(this);
-        Services.Register<IEventBus>(
-            GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>())
-        ;
-    
-       /* next two lines suggested by Chat GPT but are already in Servives 
-        private T,GetComponentInChildren<T>() {
-        throw new NotImplementedException();
-        */
+    private void Awake() {
+        Setup(this);
     }
 
-        eventManagerInstance = Instantiate(EventManagerPrefab);
-        sceneLoadingManagerInstance = Instantiate(SceneLoadingManagerPrefab);
-        uiManagerInstance = Instantiate(UIManagerPrefab);
- 
+    public override void Setup(AppManager appManager) {
+        base.Setup(appManager);
+        eventManagerInstance = Instantiate(eventManagerPrefab);
+        sceneLoadingManagerInstance = Instantiate(sceneLoadingManagerPrefab);
+        uiManagerInstance = Instantiate(uiManagerPrefab);
+
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(eventManagerInstance);
         DontDestroyOnLoad(sceneLoadingManagerInstance);
         DontDestroyOnLoad(uiManagerInstance);
 
-        /* Taking OUT THE SETUP CODE
         eventManagerInstance.Setup(this);
         sceneLoadingManagerInstance.Setup(this);
         uiManagerInstance.Setup(this);
-        
-         AND - - THE CODE BELOW MAY BE DEPENDENT OB SETUP
-         */
+
         MainMenuManager.mainMenuSceneLoadedEvent += OnMainMenuSceneLoadedEvent;
         GameManager.gameSceneLoadedEvent += OnGameSceneLoadedEvent;
         sceneLoadingManagerInstance.LoadScene("MainMenu", LoadSceneMode.Single);
-    
+    }
 
     private void OnDestroy() {
         MainMenuManager.mainMenuSceneLoadedEvent -= OnMainMenuSceneLoadedEvent;
