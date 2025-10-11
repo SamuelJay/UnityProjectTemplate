@@ -19,12 +19,13 @@ public class MainMenuManager : Manager, IMainMenu {
         
         StartListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
     }
+
+
     private void OnDestroy() {
         StopListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
     }
 
-    private void OnStartButtonPressedEvent(object sender, EventArgs data) {
+    private void OnStartButtonPressedEvent(StartButtonPressedEvent @event) {
         sceneLoadingManager.LoadScene("Game", LoadSceneMode.Single);
     }
-
 }
