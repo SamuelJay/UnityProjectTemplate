@@ -1,70 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-using System.Reflection;
-using System.Linq;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
-public class EventManager : Manager, IEventBus {
-    private Dictionary<Type, EventHandlerCapsule> eventsByType;
-
-    private EventHandlerCapsule EventHandlerCapsuleFactory() {
-        return new EventHandlerCapsule();
-    }
-      
-
+public class EventManager : Manager, IEvents
+{
+    private readonly Dictionary<Type, Delegate> map = new();
+   
     private void OnEnable() {
-        Services.Register<IEventBus>(this);
-        Setup();
-
-        // NOTE: Should we register here, currently doing it in AppManager
+        Services.Register<IEvents>(this);
     }
-
-    private void Setup() { 
-        SetupEvents();
+    public void StartListening<T>(Action<T> callback) where T : BaseEvent {
+        Type classType = typeof(T);
+        map[classType] = Delegate.Combine(map.GetValueOrDefault(classType), callback);
     }
-
-    public void StartListening<T>(EventHandler callBack) {
-        EventHandlerCapsule thisEvent = null;
-        if (eventsByType.TryGetValue(typeof(T), out thisEvent)) {
-            thisEvent.thisEvent += callBack;
-        }
+    public void StopListening<T>(Action<T> callback) where T : BaseEvent {
+        Type classType = typeof(T);
+        
+        if (!map.TryGetValue(classType, out Delegate eventDelegate)) return;
+        
+        eventDelegate = Delegate.Remove(eventDelegate, callback);
+        
+        if (eventDelegate == null) map.Remove(classType);
+        
+        else map[classType] = eventDelegate;
     }
-
-    public void StopListening<T>(EventHandler callBack) {
-        EventHandlerCapsule thisEvent = null;
-        if (eventsByType.TryGetValue(typeof(T), out thisEvent)) {
-            thisEvent.thisEvent -= callBack;
-        }
-    }
-
-    public void Trigger<T>(BaseEvent eventArgs) {
-        EventHandlerCapsule thisEvent = null;
-        if (eventsByType.TryGetValue(typeof(T), out thisEvent)) {
-            if (thisEvent.thisEvent != null) {
-                thisEvent.thisEvent(this, eventArgs);
-            }
-        }
-    }
-
-    private void SetupEvents() {
-        List<Type> types = FindDerivedTypes(Assembly.GetCallingAssembly(), typeof(BaseEvent));
-        eventsByType = new Dictionary<Type, EventHandlerCapsule>();
-        foreach (Type type in types) {
-
-            eventsByType.Add(type, EventHandlerCapsuleFactory());
-        }
-    }
-
-    private List<Type> FindDerivedTypes(Assembly assembly, Type baseType) {
-
-        List<Type> allTypes = assembly.GetTypes().ToList<Type>();
-        List<Type> types = new List<Type>();
-        foreach (Type type in allTypes) {
-            if (type.IsSubclassOf(baseType)) {
-                types.Add(type);
-            }
-        }
-        return types;
+    public void Trigger<T>(T eventReference) where T : BaseEvent {
+        if (map.TryGetValue(typeof(T), out Delegate eventDelegate)) ((Action<T>)eventDelegate)?.Invoke(eventReference);
     }
 }

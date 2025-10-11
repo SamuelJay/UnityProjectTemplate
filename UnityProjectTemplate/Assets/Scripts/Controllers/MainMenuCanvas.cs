@@ -21,6 +21,6 @@ public class MainMenuCanvas : Controller {
     }
 
     private void StartButtonPressed() {
-        TriggerEvent<StartButtonPressedEvent>(new StartButtonPressedEvent());
+        TriggerEvent(new StartButtonPressedEvent());
     }
 }

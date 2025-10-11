@@ -16,9 +16,9 @@ public class GameManager : Manager, IGame
 
     public void Setup() {
         StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
+        Services.Get<IEvents>().Trigger( new TestGameStartedEvent());
     }
 
-    
 
     private void OnDestroy() {
         StopListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
@@ -26,11 +26,11 @@ public class GameManager : Manager, IGame
 
     private void Update() {
         if (Input.GetKeyUp(KeyCode.Escape)) {
-            TriggerEvent<ExitButtonPressedEvent>(new ExitButtonPressedEvent());
+            TriggerEvent(new ExitButtonPressedEvent());
         }
     }
 
-    private void OnExitButtonPressedEvent(object sender, EventArgs data) {
+    private void OnExitButtonPressedEvent(ExitButtonPressedEvent @event) {
         sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 

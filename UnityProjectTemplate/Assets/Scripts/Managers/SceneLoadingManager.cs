@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,19 @@ using UnityEngine.SceneManagement;
 public class SceneLoadingManager : Manager, IScenes {
     private void Setup() {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        Services.Get<IEvents>().StartListening<TestGameStartedEvent>(OnTestGameStartedEvent);
     }
+
+    private void OnTestGameStartedEvent(TestGameStartedEvent @event) {
+        Debug.Log("HOW IT WORK");
+    }
+
     private void OnEnable() {
         Services.Register<IScenes>(this);
         Setup();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        TriggerEvent<SceneLoadedEvent>(new SceneLoadedEvent(scene, mode));
+        TriggerEvent(new SceneLoadedEvent(scene, mode));
     }
 
     public void LoadScene(string name, LoadSceneMode mode) {

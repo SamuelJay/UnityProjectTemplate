@@ -9,7 +9,7 @@ public class AppManager : Manager, IApp {
 
     private void OnEnable() {
         Services.Register<IApp>(this);
-        Services.Register<IEventBus>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
+        Services.Register<IEvents>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
         Services.Register<IScenes>(GetComponentInChildren<SceneLoadingManager>() ?? gameObject.AddComponent<SceneLoadingManager>());
         Setup();
     }
