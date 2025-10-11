@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 public class AppManager : Manager, IApp {
 
     private void OnEnable() {
-        Services.Register<IApp>(this);
-        Services.Register<IEvents>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
-        Services.Register<IScenes>(GetComponentInChildren<SceneLoadingManager>() ?? gameObject.AddComponent<SceneLoadingManager>());
-        Setup();
+        Services.RegisterApp<IApp>(this);
+        Services.RegisterApp<IEvents>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
+        Services.RegisterApp<IScenes>(GetComponentInChildren<SceneLoadingManager>() ?? gameObject.AddComponent<SceneLoadingManager>());
+        Setup();         
     }
 
     private void Setup() {

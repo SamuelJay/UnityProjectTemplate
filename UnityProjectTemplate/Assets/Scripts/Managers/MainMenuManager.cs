@@ -9,7 +9,7 @@ public class MainMenuManager : Manager, IMainMenu {
     [SerializeField] private MainMenuCanvas mainMenuCanvas;
 
     private void OnEnable() {
-        Services.Register<IMainMenu>(this);
+        Services.RegisterScene<IMainMenu>(this);
         Setup();
     }
 

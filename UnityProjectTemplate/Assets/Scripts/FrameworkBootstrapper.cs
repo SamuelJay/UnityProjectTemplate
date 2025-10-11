@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public sealed class FrameworkBootstrapper : MonoBehaviour {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -24,5 +25,7 @@ public sealed class FrameworkBootstrapper : MonoBehaviour {
             DontDestroyOnLoad(go1);
             go1.AddComponent<SceneLoadingManager>(); // SceneLoadingManager registers itself in OnEnable}
         }
+        SceneManager.activeSceneChanged += (_, __) => Services.ResetSceneScope();
+        //Bootstrapper.Run();
     }
 }

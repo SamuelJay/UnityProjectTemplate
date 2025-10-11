@@ -10,7 +10,7 @@ public class GameManager : Manager, IGame
     [SerializeField] private GameCanvas gameCanvas;
 
     private void OnEnable() {
-        Services.Register<IGame>(this);
+        Services.RegisterScene<IGame>(this);
         Setup();
     }
 

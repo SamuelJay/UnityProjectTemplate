@@ -8,7 +8,7 @@ public class EventManager : Manager, IEvents
     private readonly Dictionary<Type, Delegate> map = new();
    
     private void OnEnable() {
-        Services.Register<IEvents>(this);
+        Services.RegisterApp<IEvents>(this);
     }
     public void StartListening<T>(Action<T> callback) where T : BaseEvent {
         Type classType = typeof(T);

@@ -15,7 +15,7 @@ public class SceneLoadingManager : Manager, IScenes {
     }
 
     private void OnEnable() {
-        Services.Register<IScenes>(this);
+        Services.RegisterApp<IScenes>(this);
         Setup();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {

@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Services {
-    private static readonly Dictionary<Type, object> map = new();
-    public static void Register<T>(T instance) where T : class => map[typeof(T)] = instance;
+    private static readonly Dictionary<Type, object> app = new();
+    private static Dictionary<Type, object> scene = new();
+
+    public static void RegisterApp<T>(T inst) where T : class => app[typeof(T)] = inst;
+    public static void RegisterScene<T>(T inst) where T : class => scene[typeof(T)] = inst;
+
     public static bool TryGet<T>(out T value) where T : class {
-        if (map.TryGetValue(typeof(T), out object obj)) {
-            value = (T)obj;
-            return true;
-        }
-        value = null;
-        return false;
+        if (scene.TryGetValue(typeof(T), out var s)) { value = (T)s; return true; }
+        if (app.TryGetValue(typeof(T), out var a)) { value = (T)a; return true; }
+        value = null; return false;
     }
-    public static T Get<T>() where T : class => (T)map[typeof(T)];
+
+    public static T Get<T>() where T : class =>
+        TryGet<T>(out T v) ? v :
+        throw new InvalidOperationException($"No service for {typeof(T).Name}. (Check scene/app registration.)");
+
+    internal static void ResetSceneScope() => scene = new Dictionary<Type, object>();
 }
