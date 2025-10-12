@@ -13,6 +13,10 @@ public class MainMenuManager : Manager, IMainMenu {
         Setup();
     }
 
+    private void OnDisable() {
+        Services.UnregisterScene<IMainMenu>(this);
+    }
+
     private void Setup() {
         
         print("MainMenuSceneManager Setup");

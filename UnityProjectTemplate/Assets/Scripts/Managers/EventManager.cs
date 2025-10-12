@@ -10,6 +10,11 @@ public class EventManager : Manager, IEvents
     private void OnEnable() {
         Services.RegisterApp<IEvents>(this);
     }
+
+    private void OnDestroy() {
+        Services.UnregisterApp<IEvents>(this);
+    }
+
     public void StartListening<T>(Action<T> callback) where T : BaseEvent {
         Type classType = typeof(T);
         map[classType] = Delegate.Combine(map.GetValueOrDefault(classType), callback);

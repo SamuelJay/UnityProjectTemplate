@@ -20,8 +20,8 @@ public class GameManager : Manager, IGame
         Services.Get<IEvents>().Trigger( new TestGameStartedEvent());
     }
 
-
-    private void OnDestroy() {
+    private void OnDisable() {
+        Services.UnregisterScene<IGame>(this);
         StopListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
     }
 

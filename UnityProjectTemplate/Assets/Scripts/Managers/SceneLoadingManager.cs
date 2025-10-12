@@ -19,6 +19,11 @@ public class SceneLoadingManager : Manager, IScenes {
         Services.RegisterApp<IScenes>(this);
         Setup();
     }
+
+    private void OnDestroy() {
+        Services.UnregisterApp<IScenes>(this);
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         Debug.Log($"SceneLoadingManager OnSceneLoaded {scene.name}");
         //Services.LogScopes();

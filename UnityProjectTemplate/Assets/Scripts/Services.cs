@@ -6,9 +6,6 @@ public static class Services {
     private static readonly Dictionary<Type, object> app = new();
     private static Dictionary<Type, object> scene = new();
 
-    public static void RegisterApp<T>(T inst) where T : class => app[typeof(T)] = inst;
-    public static void RegisterScene<T>(T inst) where T : class => scene[typeof(T)] = inst;
-
     public static bool TryGet<T>(out T value) where T : class {
         if (scene.TryGetValue(typeof(T), out var s)) { value = (T)s; return true; }
         if (app.TryGetValue(typeof(T), out var a)) { value = (T)a; return true; }
@@ -18,6 +15,20 @@ public static class Services {
     public static T Get<T>() where T : class =>
         TryGet<T>(out T v) ? v :
         throw new InvalidOperationException($"No service for {typeof(T).Name}. (Check scene/app registration.)");
+    
+    public static void RegisterApp<T>(T instance) where T : class => app[typeof(T)] = instance;
+    
+    public static void RegisterScene<T>(T instance) where T : class => scene[typeof(T)] = instance;
+
+    public static void UnregisterApp<T>(T inst) where T : class {
+        if (app.TryGetValue(typeof(T), out var cur) && ReferenceEquals(cur, inst))
+            app.Remove(typeof(T));
+    }
+    public static void UnregisterScene<T>(T inst) where T : class {
+        if (scene.TryGetValue(typeof(T), out var cur) && ReferenceEquals(cur, inst))
+            scene.Remove(typeof(T));
+    }
+
 
     internal static void ResetSceneScope() => scene = new Dictionary<Type, object>();
 

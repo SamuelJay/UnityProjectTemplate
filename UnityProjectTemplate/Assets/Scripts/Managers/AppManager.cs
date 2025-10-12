@@ -24,6 +24,6 @@ public class AppManager : Manager, IApp {
 
 
     private void OnDestroy() {
-       
+        Services.UnregisterApp<IApp>(this);
     }
 }
