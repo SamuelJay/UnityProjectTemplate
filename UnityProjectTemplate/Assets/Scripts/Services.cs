@@ -20,4 +20,20 @@ public static class Services {
         throw new InvalidOperationException($"No service for {typeof(T).Name}. (Check scene/app registration.)");
 
     internal static void ResetSceneScope() => scene = new Dictionary<Type, object>();
+
+    public static void LogScopes() {
+        Debug.Log("App Services Registered");
+        string appScopes ="";
+        foreach (var k in app.Keys) {
+            appScopes += $"Key {k} Value: {app[k]} ";
+        }
+        Debug.Log($"{appScopes}");
+
+        string sceneScopes = "";
+        Debug.Log("Scene Services Registered");
+        foreach (var k in scene.Keys) {
+            sceneScopes += $"Key {k} Value: {scene[k]} ";
+        }
+        Debug.Log($"{sceneScopes}");
+    }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,14 +20,31 @@ public class SceneLoadingManager : Manager, IScenes {
         Setup();
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        Debug.Log($"SceneLoadingManager OnSceneLoaded {scene.name}");
+        //Services.LogScopes();
         TriggerEvent(new SceneLoadedEvent(scene, mode));
     }
 
+    public bool SceneAlreadyLoaded(string sceneName) {
+        for (int i = 0; i < SceneManager.sceneCount; i++) {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == sceneName && scene.isLoaded) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public void LoadScene(string name, LoadSceneMode mode) {
+        //Debug.Log($"SceneLoadingManager LoadScene {name}");
+        //Services.LogScopes();
         SceneManager.LoadScene(name, mode);
     }
 
     public void UnLoadScene(string name) {
+        //Debug.Log($"SceneLoadingManager UnLoadScene {name}");
+        //Services.LogScopes();
         SceneManager.UnloadSceneAsync(name);
     }
 

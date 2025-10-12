@@ -16,7 +16,7 @@ public class MainMenuManager : Manager, IMainMenu {
     private void Setup() {
         
         print("MainMenuSceneManager Setup");
-        
+        Services.LogScopes();
         StartListeningToEvent<StartButtonPressedEvent>(OnStartButtonPressedEvent);
     }
 

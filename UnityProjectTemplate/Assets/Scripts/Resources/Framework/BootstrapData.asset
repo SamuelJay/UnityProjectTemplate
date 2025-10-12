@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12436b05965e32044ac97097db57b4d9, type: 3}
+  m_Name: BootstrapData
+  m_EditorClassIdentifier: Assembly-CSharp::BootstrapData
+  initialSceneName: MainMenu
+  appServices:
+  - prefab: {fileID: 6221821081655101254, guid: 211f9231754b5fe45abb1387fd15173c, type: 3}
+    lifetime: 0
+    interfacesToRegister: []
+  - prefab: {fileID: 7713958845651926748, guid: ce3e069bb5f90ff408cc6d0a913abaa9, type: 3}
+    lifetime: 0
+    interfacesToRegister: []
+  sceneServices: []

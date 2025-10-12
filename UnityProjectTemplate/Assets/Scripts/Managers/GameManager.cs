@@ -15,6 +15,7 @@ public class GameManager : Manager, IGame
     }
 
     public void Setup() {
+        Services.LogScopes();
         StartListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
         Services.Get<IEvents>().Trigger( new TestGameStartedEvent());
     }
