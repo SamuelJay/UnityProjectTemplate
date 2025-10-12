@@ -31,6 +31,14 @@ public class EventManager : Manager, IEvents
         else map[classType] = eventDelegate;
     }
     public void Trigger<T>(T eventReference) where T : BaseEvent {
-        if (map.TryGetValue(typeof(T), out Delegate eventDelegate)) ((Action<T>)eventDelegate)?.Invoke(eventReference);
+        if (!map.TryGetValue(typeof(T), out Delegate eventDelegate)) return;
+
+        foreach (Delegate callback in eventDelegate.GetInvocationList()) {
+            try { 
+                ((Action<T>)callback).Invoke(eventReference); 
+            } catch (Exception ex) { 
+                Debug.LogException(ex); 
+            }
+        }
     }
 }

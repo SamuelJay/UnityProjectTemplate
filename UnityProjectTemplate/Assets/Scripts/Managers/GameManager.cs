@@ -21,8 +21,8 @@ public class GameManager : Manager, IGame
     }
 
     private void OnDisable() {
-        Services.UnregisterScene<IGame>(this);
         StopListeningToEvent<ExitButtonPressedEvent>(OnExitButtonPressedEvent);
+        Services.UnregisterScene<IGame>(this);
     }
 
     private void Update() {
