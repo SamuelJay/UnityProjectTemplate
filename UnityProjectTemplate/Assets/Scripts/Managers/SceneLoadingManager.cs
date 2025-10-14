@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadingManager : Manager, IScenes {
     private void Setup() {
-        SceneManager.sceneLoaded += OnSceneLoaded;
         Services.Get<IEvents>().StartListening<TestGameStartedEvent>(OnTestGameStartedEvent);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnTestGameStartedEvent(TestGameStartedEvent @event) {
@@ -22,6 +22,7 @@ public class SceneLoadingManager : Manager, IScenes {
 
     private void OnDestroy() {
         Services.UnregisterApp<IScenes>(this);
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {

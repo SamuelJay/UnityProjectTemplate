@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Profiling;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 public class Bootstrapper {
@@ -27,18 +28,18 @@ public class Bootstrapper {
 
     public static void RunAfterSceneLoaded(BootstrapData profile) {
         // Optionally instantiate initial scene-level services (rarely needed)
-        if (!string.IsNullOrEmpty(profile.initialSceneName)) {
-            IScenes scenes = Services.Get<IScenes>();
-            if (!scenes.SceneAlreadyLoaded(profile.initialSceneName)) {
-                Services.Get<IScenes>().LoadScene(profile.initialSceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
-            }
+        Scene active = SceneManager.GetActiveScene();
+        // Load first scene if not already there
+        if (!string.IsNullOrEmpty(profile.initialSceneName) &&
+            !string.Equals(active.name, profile.initialSceneName, StringComparison.Ordinal)) {
+            Services.Get<IScenes>().LoadScene(profile.initialSceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+
         }
         foreach (ServiceData service in profile.sceneServices) {
             MonoBehaviour instance = Object.Instantiate(service.prefab);
             RegisterInterfaces(instance, service.interfacesToRegister, app: false);
         }
 
-        // Load first scene if not already there
     }
 
     private static void RegisterInterfaces(MonoBehaviour instance, string[] ifaceNames, bool app) {
