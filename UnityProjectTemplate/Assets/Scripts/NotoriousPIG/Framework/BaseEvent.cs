@@ -1,8 +1,9 @@
 ﻿using System;
 
+namespace NotoriousPIG.Framework {
+    public class BaseEvent : EventArgs {
 
-public class BaseEvent : EventArgs {
 
-
+    }
 }
 

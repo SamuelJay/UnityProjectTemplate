@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class TestGameStartedEvent : BaseEvent
-{
-    
+namespace NotoriousPIG.Framework.Examples {
+    public class TestGameStartedEvent : BaseEvent {
+
+    }
 }

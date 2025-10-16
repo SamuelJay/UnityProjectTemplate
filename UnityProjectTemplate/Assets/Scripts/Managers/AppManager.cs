@@ -5,25 +5,27 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AppManager : Manager, IApp {
+namespace NotoriousPIG.Framework.Examples {
+    public class AppManager : Manager, IApp {
 
-    private void OnEnable() {
-        Services.RegisterApp<IApp>(this);
-        Services.RegisterApp<IEvents>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
-        Services.RegisterApp<IScenes>(GetComponentInChildren<SceneLoadingManager>() ?? gameObject.AddComponent<SceneLoadingManager>());
-        Setup();         
-    }
+        private void OnEnable() {
+            Services.RegisterApp<IApp>(this);
+            Services.RegisterApp<IEvents>(GetComponentInChildren<EventManager>() ?? gameObject.AddComponent<EventManager>());
+            Services.RegisterApp<IScenes>(GetComponentInChildren<SceneLoadingManager>() ?? gameObject.AddComponent<SceneLoadingManager>());
+            Setup();
+        }
 
-    private void Setup() {
-        
-
-        DontDestroyOnLoad(this);
-        
-        sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
-    }
+        private void Setup() {
 
 
-    private void OnDestroy() {
-        Services.UnregisterApp<IApp>(this);
+            DontDestroyOnLoad(this);
+
+            sceneLoadingManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
+
+
+        private void OnDestroy() {
+            Services.UnregisterApp<IApp>(this);
+        }
     }
 }

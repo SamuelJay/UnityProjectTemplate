@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuCanvas : Controller {
-    
-    [SerializeField] private Button startButton;
+namespace NotoriousPIG.Framework.Examples {
+    public class MainMenuCanvas : Controller {
 
-    private void OnEnable() {
-        Setup();
-    }
+        [SerializeField] private Button startButton;
 
-    private void Setup() {
-        startButton.onClick.AddListener(StartButtonPressed);
-    }
+        private void OnEnable() {
+            Setup();
+        }
+
+        private void Setup() {
+            startButton.onClick.AddListener(StartButtonPressed);
+        }
 
 
-    private void OnDestroy() {
-        startButton.onClick.RemoveListener(StartButtonPressed);
-    }
+        private void OnDestroy() {
+            startButton.onClick.RemoveListener(StartButtonPressed);
+        }
 
-    private void StartButtonPressed() {
-        TriggerEvent(new StartButtonPressedEvent());
+        private void StartButtonPressed() {
+            TriggerEvent(new StartButtonPressedEvent());
+        }
     }
 }
